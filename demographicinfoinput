@@ -1,0 +1,356 @@
+# -*- coding: utf-8 -*-
+"""
+Title: Homework #2 - Collection Game
+"""
+
+# Output a welcome message describing the application and any instructions
+# Create function for welcome message
+def welcomeMessage():
+    print("")
+    print("Welcome the Collection Game")
+    print("")
+    print("I will ask for three pieces of demographic information from player"
+          " one and three pieces of demographic information from player two. "
+          "After the demographic information has been collected, player one "
+          "and player two will take turns trying to guess each other's "
+          "information.")
+    print("You may quit the game at anytime by typing in the letter Q.")
+
+# Create function for quiting application
+def quitMessage():
+    print("")
+    print("Thank you for playing. Goodbye.")
+    
+# Call the welcome message function so that the instructions and welcome 
+# are printed to the screen for the user
+welcomeMessage()
+
+# Create function for user to begin game or quit
+def initialUserOption():    
+    # Declare user input variable
+    userInput = ''    
+    # Create error message within the scope of this function
+    def initialInputError():
+        print("You must enter OK or Q. Please try again.")    
+    # Create loop that outputs instruction to enter ok to start or q to quit
+    while True:
+        # First try to get user to type in OK or Q
+        try:
+            # Ask user to type OK to start or Q to quit
+            userInput = input("Please type OK to continue or Q to quit: ")
+            # Strip whitespace the characters the user inputs
+            # Covert input to lowercase characters
+            userInput = userInput.strip().lower()    
+            # Check if user entered in ok or q 
+            # by declaring list of valid inputs
+            validInput = ['ok','q']
+            # If the input is invalid call the ValueError
+            # Code will jump down to except to print error message
+            if userInput not in validInput:
+                raise ValueError
+            # If the user inputs q, quit the program
+            elif userInput == "q":
+                quitMessage()
+                break
+            
+            else:
+                 # Create variables to collect user input
+                # Collect demographic info for player one
+                print("\nPlayer two please look away while player "
+                      "one enters in their information below.")
+                print("")
+                namePlayerOne = input("Enter your first name: "
+                                      ).strip().lower()
+                if namePlayerOne == 'q':
+                    quitMessage()
+                    break
+                # Ask player for region
+                regionPlayerOne = input("Enter in the region of the country "
+                                        "you live in. You may enter Midwest, "
+                                        "Northeast, South, or West: "
+                                        ).strip().lower()
+                # Define valid input
+                validRegion = ['midwest', 'northeast', 'south', 'west']
+                # Allow user to quit
+                if regionPlayerOne == 'q':
+                    quitMessage()
+                    break
+                # Check region input
+                if regionPlayerOne not in validRegion:
+                    while regionPlayerOne not in validRegion:
+                        try:
+                            regionPlayerOne = input("You must enter Midwest, "
+                                        "Northeast, South, or West: "
+                                        ).strip().lower()
+                        except:
+                            if regionPlayerOne in validRegion:
+                                break
+                # Collect state    
+                statePlayerOne = input("Type in the abbreviation for the "
+                                       "state you live in: ").strip().lower()
+                if statePlayerOne == 'q':
+                    quitMessage()
+                    break
+                
+                validState = ['al', 'ak', 'az', 'ar', 'ca', 'co', 'ct', 'de',
+                              'fl', 'ga', 'hi', 'id', 'il', 'in', 'ia', 'ks',
+                              'ky', 'la', 'me', 'md', 'ma', 'mi', 'mn', 'ms',
+                              'mo', 'mt', 'ne', 'nv', 'nh', 'nj', 'ny', 'nc',
+                              'nd', 'oh', 'ok', 'or', 'pa', 'ri', 'sc', 'sd',
+                              'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi',
+                              'wy']
+                if statePlayerOne not in validState:
+                    while statePlayerOne not in validState:
+                        try:
+                            statePlayerOne = input("You must enter your the "
+                                                   "two letter abbreviation "
+                                                   "for your state: "
+                                                   ).strip().lower()
+                        except:
+                            if statePlayerOne in validState:
+                                break
+                # Ask player to enter y if they voted or n if they did not
+                votePlayerOne = input("Did you vote in the Midterm Election? "
+                                      "Type Y for yes or N for no: "
+                                      ).strip().lower()
+                if votePlayerOne == 'q':
+                    quitMessage()
+                    break
+                
+                validVote = ['y', 'n']
+                
+                if votePlayerOne not in validVote:
+                    while votePlayerOne not in validVote:
+                        try:
+                            votePlayerOne = input("Enter Y for yes or N for "
+                                                 "no: ").strip().lower()
+                        except:
+                            if votePlayerOne in validVote:
+                                break
+                # Create dictionary for player one's input
+                input_P1 = {'name':namePlayerOne, 'region':regionPlayerOne, 
+                            'vote':votePlayerOne, 'state':statePlayerOne}
+                # Insert blank lines
+                print("\n")
+                # Display instructions for player two
+                print("Player two please enter the information requested "
+                      "below. \nPlayer one please look away while player "
+                      "two enters in their information.")
+                print("")    
+                # Collect demographic info for player two
+                namePlayerTwo = input("Enter your first name: " 
+                                        ).strip().lower()
+                if namePlayerTwo == 'q':
+                    quitMessage()
+                    break
+                # Ask player for region
+                regionPlayerTwo = input("Enter in the region of the country "
+                                        "you live in. You may enter Midwest, "
+                                        "Northeast, South, or West: "
+                                        ).strip().lower()
+                if regionPlayerTwo == 'q':
+                    quitMessage()
+                    break
+                
+                if regionPlayerTwo not in validRegion:
+                    while regionPlayerTwo not in validRegion:
+                        try:
+                            regionPlayerTwo = input("You must enter Midwest, "
+                                        "Northeast, South, or West: "
+                                        ).strip().lower()
+                        except:
+                            if regionPlayerTwo in validRegion:
+                                break
+                # Ask player to enter state abbreviation
+                statePlayerTwo = input("Type in the abbreviation for the "
+                                       "state you live in: ").strip().lower()
+                if statePlayerTwo == 'q':
+                    quitMessage()
+                    break
+                
+                if statePlayerTwo not in validState:
+                    while statePlayerTwo not in validState:
+                        try:
+                            statePlayerTwo = input("You must enter your the "
+                                                   "two letter abbreviation "
+                                                   "for your state: "
+                                                   ).strip().lower()
+                        except:
+                            if statePlayerTwo in validState:
+                                break
+                # Ask player to enter y if they voted or n if they did not
+                votePlayerTwo = input("Did you vote in the Midterm Election? "
+                                      "Type Y for yes or N for no: "
+                                      ).strip().lower()
+                if votePlayerTwo == 'q':
+                    quitMessage()
+                    break
+                
+                if votePlayerTwo not in validVote:
+                    while votePlayerTwo not in validVote:
+                        try:
+                            votePlayerTwo = input("Enter Y for yes or N for "
+                                                 "no: ").strip().lower()
+                        except:
+                            if votePlayerTwo in validVote:
+                                break
+                # Create dictionary from player two's input 
+                input_P2 = {'name':namePlayerTwo, 'region':regionPlayerTwo, 
+                            'vote':votePlayerTwo, 'state':statePlayerTwo}
+                
+                # Create variable for number of guesses
+                nOfGuesses = 0
+                # Create variable for score counter
+                counter = 0
+                # Create while loop to give player three guesses
+                while nOfGuesses < 3:
+                     # Ask display player one's name and ask them
+                     # to guess player two's region
+                    guessP2Region = input(namePlayerOne + " please guess "
+                                          "player two's region: ")
+                    nOfGuesses = nOfGuesses + 1
+                    
+                    if guessP2Region != input_P2["region"]:
+                        print("Incorrect. Try again.")
+                    
+                    if guessP2Region in input_P2["region"]:
+                        break
+                # If the player correctly guesses add one point and display
+                # score
+                if guessP2Region in input_P2["region"]:    
+                    print("correct")
+                    counter = counter + 1
+                    print("Your score is:", counter)
+                
+                if guessP2Region != input_P2["region"]:
+                        print("Incorrect. Move on.")
+                        
+                # Ask player one to guess player two's state
+                nOfGuesses2 = 0
+                
+                while nOfGuesses2 < 3:
+                    guessP2State = input(namePlayerOne + " please guess player " 
+                                       "two's state: ")
+                    nOfGuesses2 = nOfGuesses2 + 1
+                    
+                    if guessP2State != input_P2["state"]:
+                        print("Incorrect. Try again.")
+                    
+                    if guessP2State in input_P2["state"]:
+                        break
+                     
+                if guessP2State in input_P2["state"]:    
+                    print("correct")
+                    counter = counter + 1
+                    print("Your score is:", counter)
+                
+                if guessP2State != input_P2["state"]:
+                    print("Incorrect. Move on.")
+                    print("Your score is:", counter)
+                    
+
+                # Ask player one if player two voted
+                nOfGuesses3 = 0
+                
+                while nOfGuesses3 < 3:
+                    guessP2Vote = input(namePlayerOne + 
+                                        " did player two vote?:  ")
+                    nOfGuesses3 = nOfGuesses3 + 1
+                    
+                    if guessP2Vote != input_P2["vote"]:
+                        print("Incorrect. Try again.")
+                    
+                    if guessP2Vote in input_P2["vote"]:
+                        break
+                     
+                if guessP2Vote in input_P2["vote"]:    
+                    print("correct")
+                    counter = counter + 1
+                    print("Your score is:", counter)
+                
+                if guessP2Vote != input_P2["vote"]:
+                    print("Incorrect. Move on.")
+                    print("Your score is:", counter)
+                
+                # Player two's guesses
+                # Create variable for number of guesses
+                nOfGuesses4 = 0
+                # Create variable for score counter
+                counter2 = 0
+                # Ask player two to guess player one's region
+                while nOfGuesses4 < 3:
+                    guessP1Region = input(namePlayerTwo + " please guess player " 
+                                       "one's region: ")
+                    nOfGuesses4 = nOfGuesses4 + 1
+                    
+                    if guessP1Region != input_P1["region"]:
+                        print("Incorrect. Try again.")
+                    
+                    if guessP1Region in input_P1["region"]:
+                        break
+                     
+                if guessP1Region in input_P1["region"]:    
+                    print("correct")
+                    counter2 = counter2 + 1
+                    print("Your score is:", counter2)
+                
+                if guessP1Region != input_P1["region"]:
+                        print("Incorrect. Move on.")
+                
+                # Ask player two to guess player one's state
+                nOfGuesses5 = 0
+                
+                while nOfGuesses5 < 3:
+                    guessP1State = input(namePlayerTwo + " please guess player " 
+                                       "one's state: ")
+                    nOfGuesses5 = nOfGuesses5 + 1
+                    
+                    if guessP1State != input_P1["state"]:
+                        print("Incorrect. Try again.")
+                    
+                    if guessP1State in input_P1["state"]:
+                        break
+                     
+                if guessP1State in input_P1["state"]:    
+                    print("correct")
+                    counter2 = counter2 + 1
+                    print("Your score is:", counter2)
+                
+                if guessP1State != input_P1["state"]:
+                    print("Incorrect. Move on.")
+                    print("Your score is:", counter2)
+                
+                # Ask player if player voted
+                nOfGuesses6 = 0
+                
+                while nOfGuesses6 < 3:
+                    guessP1Vote = input(namePlayerTwo + 
+                                        " did player one vote?:  ")
+                    nOfGuesses6 = nOfGuesses6 + 1
+                    
+                    if guessP1Vote != input_P1["vote"]:
+                        print("Incorrect. Try again.")
+                    
+                    if guessP1Vote in input_P1["vote"]:
+                        break
+                    
+                if guessP1Vote in input_P1["vote"]:    
+                    print("correct")
+                    counter2 = counter2 + 1
+                    print("Your score is:", counter2)
+                
+                if guessP1Vote != input_P1["vote"]:
+                    print("Incorrect. Move on.")
+                    print("Your score is:", counter2)
+                    
+        # Print error message if user types in a character other than ok or q        
+        except ValueError:
+            initialInputError()
+
+# Ask the user to start the program or quit
+initialUserOption()
+
+
+
+
+
